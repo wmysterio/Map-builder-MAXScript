@@ -20,7 +20,7 @@ Create a plane and position its edges along the desired road layout.
 
 Select the object, click the `Generate Map` button, and wait for the process to finish.
 
-![](https://github.com/user-attachments/assets/0b4d24ba-9520-43a5-bc75-b5bf4b422761)
+![](https://github.com/user-attachments/assets/1af68625-093f-4a65-af90-1acad868c24a)
 
 ## Recommendations
 
