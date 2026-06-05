@@ -8,6 +8,9 @@ Requirements:
 Launch:
 - Move the file `map_builder.ms` from the archive to any location.
 - Go to the menu `Scripting->Run Script...` and select the file "map_builder.ms".
+
+![](https://github.com/user-attachments/assets/70af4ca8-8f11-452a-b782-759abe990192)
+
 - Select the object and click the `Generate Map` button and wait for the process to complete.
 
 ![](https://github.com/user-attachments/assets/0be36bef-10b0-433a-892f-597d3c71335e)
