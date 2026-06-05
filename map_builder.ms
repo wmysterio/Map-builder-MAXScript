@@ -2,8 +2,8 @@ try ( closeUtility mapBuilderUtility ) catch ()
 
 utility mapBuilderUtility "Map builder" (
 
-	label dummyLabel00 "Half Road Width:" align:#left
-	spinner halfRoadWidthSpinner type:#float range:[4.0, 10.0, 5.0] align:#left width:150
+	label dummyLabel00 "Road Width:" align:#left
+	spinner roadWidthSpinner type:#float range:[4.0, 10.0, 5.0] align:#left width:150
 	
 	label dummyLabel01 "Sidewalk Width:" align:#left
 	spinner sidewalkWidthSpinner type:#float range:[4.0, 6.0, 5.0] align:#left width:150
@@ -33,30 +33,31 @@ utility mapBuilderUtility "Map builder" (
 	checkbox assignMaterialsCheckbox "Assign Materials" checked:true align:#left width:150
 	
 	label dummyLabel09 " "
-	button generateMap "Generate Map"
+	checkbox splitByChunksCheckbox "Split by chunks" checked:false align:#left width:150 enabled:false
+	button generateMap "Generate Map" width:150
 	label dummyLabel10 " "
 	label dummyLabel11 "----------"
 	
-	label dummyLabel16 "Chunk Grid Section Count:" align:#left
+	label dummyLabel12 "Chunk Grid Section Count:" align:#left
 	spinner chunkGridSectionCountSpinner type:#integer range:[1, 128, 30] align:#left width:150
 	
-	label dummyLabel17 "Chunk Grid Cell Size:" align:#left
+	label dummyLabel13 "Chunk Grid Cell Size:" align:#left
 	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 4000.0, 200.0] align:#left width:150 scale:10.0
 	
 	button createChunkGridButton "Create Chunk Grid"
 	button createFlatPlaneButton "Create Flat Plane"
 	button createFlatPlaneWithSegmentsButton "Create Flat Plane With Segments"
-	label dummyLabel18 " "
+	label dummyLabel14 " "
 	label dummyLabel15 "----------"
 	
-	label dummyLabel12 "Path Grid Section Count:" align:#left
+	label dummyLabel16 "Path Grid Section Count:" align:#left
 	spinner pathGridSectionCountSpinner type:#integer range:[1, 64, 8] align:#left width:150
 	
-	label dummyLabel13 "Path Grid Cell Size:" align:#left
+	label dummyLabel17 "Path Grid Cell Size:" align:#left
 	spinner pathGridCellSizeSpinner type:#float range:[10.0, 4000.0, 750.0] align:#left width:150 scale:10.0
 	
 	button createPathGridButton "Create Path Grid"
-	label dummyLabel14 " "
+	label dummyLabel18 " "
 	
 	on generateMap pressed do (
 		
@@ -107,7 +108,7 @@ utility mapBuilderUtility "Map builder" (
 			)
 		)
 		
-		local halfRoadWidth = halfRoadWidthSpinner.value 
+		local roadWidth = roadWidthSpinner.value 
 		local sidewalkWidth = sidewalkWidthSpinner.value 
 		local sidewalkHeight = sidewalkHeightSpinner.value 
 		local sidewalkSideSegments = sidewalkSideSegmentsSpinner.value / 2
@@ -126,7 +127,7 @@ utility mapBuilderUtility "Map builder" (
 		polyop.setFaceSelection obj #All
 		polyop.setFaceMatID obj (polyop.getFaceSelection obj) roadMaterialId
 		$.insetType = 1
-		$.insetAmount = halfRoadWidth
+		$.insetAmount = roadWidth
 		$.EditablePoly.buttonOp #Inset
 		polyop.setFaceMatID obj (polyop.getFaceSelection obj) sidewalkSideMaterialId
 		fixInset obj
@@ -184,7 +185,7 @@ utility mapBuilderUtility "Map builder" (
 		$.EditablePoly.ButtonOp #Extrude
 		macros.run "Editable Polygon Object" "EPoly_Convert_Sel_To_Face"
 		$.extrusionType = 1
-		$.faceExtrudeHeight = -halfRoadWidth
+		$.faceExtrudeHeight = -roadWidth
 		$.extrude_bias = 0
 		$.EditablePoly.buttonOp #Extrude
 		subobjectLevel = 3
@@ -267,6 +268,21 @@ utility mapBuilderUtility "Map builder" (
 		
 		-------------------------------
 		
+		if splitByChunksCheckbox.checked then (
+			--modPanel.addModToSelection (SliceModifier ()) ui:on
+			--$.modifiers[#Slice].PlanarX = on
+			--$.modifiers[#Slice].PlanarY = on
+			--$.modifiers[#Slice].PlanarZ = off
+			--$.modifiers[#Slice].Slice_Type = 1
+			--$.modifiers[#Slice].Faces___Polygons_Toggle = 1
+			-- ...
+			obj.pivot = obj.center 
+		) else (
+			obj.pivot = obj.center 
+		)
+		
+		-------------------------------
+		
 		subobjectLevel = 0
 		update obj
 		forceCompleteRedraw()
@@ -315,7 +331,7 @@ utility mapBuilderUtility "Map builder" (
 
 	on createFlatPlaneWithSegmentsButton pressed do (
 		local size = chunkGridCellSizeSpinner.value * chunkGridSectionCountSpinner.value
-		local segments = (size / ((halfRoadWidthSpinner.value + sidewalkWidthSpinner.value) * 4.0)) as integer
+		local segments = (size / ((roadWidthSpinner.value + sidewalkWidthSpinner.value) * 4.0)) as integer
 		local obj = Plane length:size width:size pos:[0.0,0.0,0.0] isSelected:on lengthsegs:segments widthsegs:segments	
 		convertToPoly obj
 		selection.showFrozenInGray = false
