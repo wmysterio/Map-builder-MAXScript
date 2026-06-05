@@ -16,8 +16,5 @@ All you need to do is create a plane and place the edges along the road trajecto
 ![](https://github.com/user-attachments/assets/0be36bef-10b0-433a-892f-597d3c71335e)
 
 - Select the object and click the `Generate Map` button and wait for the process to complete.
-
-
-![](https://github.com/user-attachments/assets/cc768c3b-9789-47e3-b243-1b26c105bc37)
-
+- 
 ![](https://github.com/user-attachments/assets/0b4d24ba-9520-43a5-bc75-b5bf4b422761)
