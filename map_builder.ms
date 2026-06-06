@@ -107,8 +107,10 @@ utility mapBuilderUtility "Map builder" (
 		local sidewalkHalfWidth = sidewalkWidth * 0.5
 		local temp1 = #()
 		
-		maxOps.cloneNodes obj cloneType:#copy #nodialog
-		
+		local objOldName = obj.name
+		obj.name = uniqueName objOldName
+		maxOps.cloneNodes obj cloneType:#copy newNodes:&temp1 #nodialog
+		temp1[1].name = objOldName
 		obj.isHidden = false
 		convertToPoly obj
 		max modify mode
