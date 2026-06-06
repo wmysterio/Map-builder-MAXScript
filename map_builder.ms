@@ -36,11 +36,11 @@ utility mapBuilderUtility "Map builder" (
 	label dummyLabel15 ""
 	label dummyLabel16 "Chunk Grid" align:#left
 	label dummyLabel17 "Section Count:" align:#left width:90 across:2 offset:[-10, 0]
-	spinner chunkGridSectionCountSpinner type:#integer range:[1, 128, 30] align:#right width:60 offset:[12, 0]
+	spinner chunkGridSectionCountSpinner type:#integer range:[2, 500, 40] align:#right width:60 offset:[12, 0]
 	label dummyLabel18 "Cell Size:" align:#left width:90 across:2 offset:[-10, 0]
-	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 4000.0, 200.0] align:#right scale:10.0 width:60 offset:[12, 0]
-	button createChunkGridButton "Create Chunk Grid" width:160
-	button createFlatPlaneButton "Create Flat Plane" width:160
+	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 5000.0, 150.0] align:#right scale:10.0 width:60 offset:[12, 0]
+	button createChunkGridButton "Create" width:75 across:2 offset:[-10, 0]
+	button createFlatPlaneButton "Create Plane" align:#right width:82 offset:[13, 0]
 	button createFlatPlaneWithSegmentsButton "Create Plane With Segments" width:160 offset:[-3, 0]
 	label dummyLabel19 ""
 	label dummyLabel20 "Path Grid" align:#left
@@ -314,7 +314,7 @@ utility mapBuilderUtility "Map builder" (
 	
 	on createFlatPlaneButton pressed do (
 		local size = chunkGridCellSizeSpinner.value * chunkGridSectionCountSpinner.value
-		local obj = Plane length:size width:size pos:[0.0,0.0,-1] isSelected:on lengthsegs:1 widthsegs:1	
+		local obj = Plane length:size width:size pos:[0.0,0.0,-1.0] isSelected:on lengthsegs:1 widthsegs:1	
 		convertToPoly obj
 		selection.showFrozenInGray = false
 		freeze obj
@@ -322,8 +322,8 @@ utility mapBuilderUtility "Map builder" (
 	)
 
 	on createFlatPlaneWithSegmentsButton pressed do (
-		local size = chunkGridCellSizeSpinner.value * chunkGridSectionCountSpinner.value
-		local segments = (size / ((roadWidthSpinner.value + sidewalkWidthSpinner.value) * 4.0)) as integer
+		local segments = chunkGridSectionCountSpinner.value - 1 
+		local size = chunkGridCellSizeSpinner.value * segments
 		local obj = Plane length:size width:size pos:[0.0,0.0,0.0] isSelected:on lengthsegs:segments widthsegs:segments	
 		convertToPoly obj
 		selection.showFrozenInGray = false
