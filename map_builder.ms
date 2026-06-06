@@ -1,67 +1,55 @@
 try ( closeUtility mapBuilderUtility ) catch ()
 
 utility mapBuilderUtility "Map builder" (
-
-	label dummyLabel00 "Road Width:" align:#left
-	spinner roadWidthSpinner type:#float range:[4.0, 10.0, 5.0] align:#left width:150
 	
-	label dummyLabel01 "Sidewalk Width:" align:#left
-	spinner sidewalkWidthSpinner type:#float range:[4.0, 6.0, 5.0] align:#left width:150
-	
-	label dummyLabel02 "Sidewalk Height:" align:#left
-	spinner sidewalkHeightSpinner type:#float range:[0.1, 0.5, 0.1] align:#left width:150
-	
-	label dummyLabel03 "Sidewalk Side Segments:" align:#left
-	spinner sidewalkSideSegmentsSpinner type:#integer range:[2, 8, 4] align:#left width:150 scale:2
-
-	checkbox useInnerSidewalkSideCheckbox "Use Inner Sidewalk Side" checked:false align:#left width:150
-	checkbox removeInnerSpaceCheckbox "Remove Inner Space" checked:false align:#left width:150
-
-	label dummyLabel04 ""
-	label dummyLabel05 "Road Material ID:" align:#left
-	spinner roadMaterialIdSpinner type:#integer range:[1, 100, 1] align:#left width:120 across:2
+	label dummyLabel01 "Road" align:#left
+	label dummyLabel02 "Width:" align:#left width:100 across:2 offset:[-10, 0]
+	spinner roadWidthSpinner type:#float range:[4.0, 10.0, 5.0] align:#right width:50 offset:[15, -2]
+	label dummyLabel03 ""
+	label dummyLabel04 "Sidewalk" align:#left
+	label dummyLabel05 "Width:" align:#left width:100 across:2 offset:[-10, 0]
+	spinner sidewalkWidthSpinner type:#float range:[4.0, 6.0, 5.0] align:#right width:50 offset:[15, -2]
+	label dummyLabel06 "Height:" align:#left width:100 across:2 offset:[-10, 0]
+	spinner sidewalkHeightSpinner type:#float range:[0.1, 0.5, 0.1] align:#right width:50 offset:[15, -2]
+	label dummyLabel07 "Segments:" align:#left across:2 offset:[-10, 0]
+	spinner sidewalkSideSegmentsSpinner type:#integer range:[2, 8, 4] scale:2 align:#right width:50 offset:[15, -2]
+	checkbox useInnerSidewalkSideCheckbox "Use Inner Side" checked:false align:#left width:150 offset:[-12, 0]
+	label dummyLabel08 ""
+	label dummyLabel09 "Material ID" align:#left
+	label dummyLabel10 "Road:" align:#left width:80 across:3 offset:[-10, 0]
+	spinner roadMaterialIdSpinner type:#integer range:[1, 100, 1] align:#right width:40 offset:[35, 0]
 	button selectFacesByRoadMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
-	
-	label dummyLabel06 "Sidewalk Side Material ID:" align:#left
-	spinner sidewalkSideMaterialIdSpinner type:#integer range:[1, 100, 2] align:#left width:120 across:2
+	label dummyLabel11 "Sidewalk Side:" align:#left width:80 across:3 offset:[-10, 0]
+	spinner sidewalkSideMaterialIdSpinner type:#integer range:[1, 100, 2] align:#right width:40 offset:[35, 0]
 	button selectFacesBySidewalkSideMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
-	
-	label dummyLabel07 "Sidewalk Top Material ID:" align:#left
-	spinner sidewalkTopMaterialIdSpinner type:#integer range:[1, 100, 3] align:#left width:120 across:2
+	label dummyLabel12 "Sidewalk Top:" align:#left width:80 across:3 offset:[-10, 0]
+	spinner sidewalkTopMaterialIdSpinner type:#integer range:[1, 100, 3] align:#right width:40 offset:[35, 0]
 	button selectFacesBySidewalkTopMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
-	
-	label dummyLabel08 "Inner Space Material ID:" align:#left
-	spinner innerSpaceMaterialIdSpinner type:#integer range:[1, 100, 4] align:#left width:120 across:2
+	label dummyLabel13 "Inner Space:" align:#left width:80 across:3 offset:[-10, 0]
+	spinner innerSpaceMaterialIdSpinner type:#integer range:[1, 100, 4] align:#right width:40 offset:[35, 0]
 	button selectFacesByInnerSpaceMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
-	
+	label dummyLabel14 ""
 	checkbox assignMaterialsCheckbox "Assign Materials" checked:true align:#left width:120
-	
-	label dummyLabel09 " "
+	checkbox removeInnerSpaceCheckbox "Remove Inner Space" checked:false align:#left width:150
 	checkbox splitByChunksCheckbox "Split by chunks" checked:false align:#left width:150 enabled:false
-	button generateMap "Generate Map" width:150
-	label dummyLabel10 " "
-	label dummyLabel11 "----------"
-	
-	label dummyLabel12 "Chunk Grid Section Count:" align:#left
-	spinner chunkGridSectionCountSpinner type:#integer range:[1, 128, 30] align:#left width:150
-	
-	label dummyLabel13 "Chunk Grid Cell Size:" align:#left
-	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 4000.0, 200.0] align:#left width:150 scale:10.0
-	
-	button createChunkGridButton "Create Chunk Grid"
-	button createFlatPlaneButton "Create Flat Plane"
-	button createFlatPlaneWithSegmentsButton "Create Flat Plane With Segments"
-	label dummyLabel14 " "
-	label dummyLabel15 "----------"
-	
-	label dummyLabel16 "Path Grid Section Count:" align:#left
-	spinner pathGridSectionCountSpinner type:#integer range:[1, 64, 8] align:#left width:150
-	
-	label dummyLabel17 "Path Grid Cell Size:" align:#left
-	spinner pathGridCellSizeSpinner type:#float range:[10.0, 4000.0, 750.0] align:#left width:150 scale:10.0
-	
-	button createPathGridButton "Create Path Grid"
-	label dummyLabel18 " "
+	button generateMap "Generate Map" width:160
+	label dummyLabel15 ""
+	label dummyLabel16 "Chunk Grid" align:#left
+	label dummyLabel17 "Section Count:" align:#left width:90 across:2 offset:[-10, 0]
+	spinner chunkGridSectionCountSpinner type:#integer range:[1, 128, 30] align:#right width:60 offset:[12, 0]
+	label dummyLabel18 "Cell Size:" align:#left width:90 across:2 offset:[-10, 0]
+	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 4000.0, 200.0] align:#right scale:10.0 width:60 offset:[12, 0]
+	button createChunkGridButton "Create Chunk Grid" width:160
+	button createFlatPlaneButton "Create Flat Plane" width:160
+	button createFlatPlaneWithSegmentsButton "Create Plane With Segments" width:160 offset:[-3, 0]
+	label dummyLabel19 ""
+	label dummyLabel20 "Path Grid" align:#left
+	label dummyLabel21 "Section Count:" align:#left width:90 across:2 offset:[-10, 0]
+	spinner pathGridSectionCountSpinner type:#integer range:[1, 64, 8] align:#right width:60 offset:[12, 0]
+	label dummyLabel22 "Cell Size:" align:#left width:90 across:2 offset:[-10, 0]
+	spinner pathGridCellSizeSpinner type:#float range:[10.0, 4000.0, 750.0] align:#right width:60 offset:[12, 0]
+	button createPathGridButton "Create Path Grid" width:160
+	label dummyLabel23 ""
 	
 	on generateMap pressed do (
 		
