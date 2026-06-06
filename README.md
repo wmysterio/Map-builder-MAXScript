@@ -12,7 +12,7 @@ The script automates a significant portion of the work, but some manual editing 
 
 Extract the file `map_builder.ms` from the archive and place it in any convenient location. In 3ds Max, go to `Scripting → Run Script...` and select `map_builder.ms`.
 
-![](https://github.com/user-attachments/assets/5db3a2e1-da26-45e6-a7db-c2769bbea496)
+![](https://github.com/user-attachments/assets/06b3a333-1749-4ee7-857b-c0c6e1b2dd9b)
 
 Create a plane and position its edges along the desired road layout.
 
