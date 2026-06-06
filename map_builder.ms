@@ -19,18 +19,22 @@ utility mapBuilderUtility "Map builder" (
 
 	label dummyLabel04 ""
 	label dummyLabel05 "Road Material ID:" align:#left
-	spinner roadMaterialIdSpinner type:#integer range:[1, 100, 1] align:#left width:150
+	spinner roadMaterialIdSpinner type:#integer range:[1, 100, 1] align:#left width:120 across:2
+	button selectFacesByRoadMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
 	
 	label dummyLabel06 "Sidewalk Side Material ID:" align:#left
-	spinner sidewalkSideMaterialIdSpinner type:#integer range:[1, 100, 2] align:#left width:150
+	spinner sidewalkSideMaterialIdSpinner type:#integer range:[1, 100, 2] align:#left width:120 across:2
+	button selectFacesBySidewalkSideMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
 	
 	label dummyLabel07 "Sidewalk Top Material ID:" align:#left
-	spinner sidewalkTopMaterialIdSpinner type:#integer range:[1, 100, 3] align:#left width:150
+	spinner sidewalkTopMaterialIdSpinner type:#integer range:[1, 100, 3] align:#left width:120 across:2
+	button selectFacesBySidewalkTopMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
 	
 	label dummyLabel08 "Inner Space Material ID:" align:#left
-	spinner innerSpaceMaterialIdSpinner type:#integer range:[1, 100, 4] align:#left width:150
+	spinner innerSpaceMaterialIdSpinner type:#integer range:[1, 100, 4] align:#left width:120 across:2
+	button selectFacesByInnerSpaceMaterialIdButton "|>" width:20 align:#right offset:[15, -2]
 	
-	checkbox assignMaterialsCheckbox "Assign Materials" checked:true align:#left width:150
+	checkbox assignMaterialsCheckbox "Assign Materials" checked:true align:#left width:120
 	
 	label dummyLabel09 " "
 	checkbox splitByChunksCheckbox "Split by chunks" checked:false align:#left width:150 enabled:false
@@ -337,7 +341,31 @@ utility mapBuilderUtility "Map builder" (
 		selection.showFrozenInGray = false
 		update obj
 	)
+
+	fn selectFacesByMaterial id = (
+		if selection.count != 1 then (
+			return()
+		)
+		local obj = selection[1]
+		if superClassOf obj != GeometryClass then (
+			return()
+		)
+		convertToPoly obj
+		max modify mode
+		subobjectLevel = 4
+		$.EditablePoly.selectByMaterial id
+		--setCommandPanelTaskMode #utility 
+		--UtilityPanel.OpenUtility MAXScript
+	)
+
+	on selectFacesByRoadMaterialIdButton pressed do ( selectFacesByMaterial roadMaterialIdSpinner.value )
 	
+	on selectFacesBySidewalkSideMaterialIdButton pressed do ( selectFacesByMaterial sidewalkSideMaterialIdSpinner.value )
+	
+	on selectFacesBySidewalkTopMaterialIdButton pressed do ( selectFacesByMaterial sidewalkTopMaterialIdSpinner.value )
+	
+	on selectFacesByInnerSpaceMaterialIdButton pressed do ( selectFacesByMaterial innerSpaceMaterialIdSpinner.value )
+
 )
 
 openUtility mapBuilderUtility
