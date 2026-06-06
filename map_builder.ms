@@ -34,20 +34,20 @@ utility mapBuilderUtility "Map builder" (
 	checkbox splitByChunksCheckbox "Split by chunks" checked:false align:#left width:150 enabled:false
 	button generateMap "Generate Map" width:160
 	label dummyLabel15 ""
-	label dummyLabel16 "Chunk Grid" align:#left
+	label dummyLabel16 "Chunk Grid   6000.0x6000.0" align:#left
 	label dummyLabel17 "Section Count:" align:#left width:90 across:2 offset:[-10, 0]
 	spinner chunkGridSectionCountSpinner type:#integer range:[2, 500, 40] align:#right width:60 offset:[12, 0]
 	label dummyLabel18 "Cell Size:" align:#left width:90 across:2 offset:[-10, 0]
-	spinner chunkGridCellSizeSpinner type:#float range:[10.0, 5000.0, 150.0] align:#right scale:10.0 width:60 offset:[12, 0]
+	spinner chunkGridCellSizeSpinner type:#float range:[32.0, 512.0, 150.0] align:#right scale:10.0 width:60 offset:[12, 0]
 	button createChunkGridButton "Create" width:75 across:2 offset:[-10, 0]
 	button createFlatPlaneButton "Create Plane" align:#right width:82 offset:[13, 0]
 	button createFlatPlaneWithSegmentsButton "Create Plane With Segments" width:160 offset:[-3, 0]
 	label dummyLabel19 ""
-	label dummyLabel20 "Path Grid" align:#left
+	label dummyLabel20 "Path Grid   6000.0x6000.0" align:#left
 	label dummyLabel21 "Section Count:" align:#left width:90 across:2 offset:[-10, 0]
-	spinner pathGridSectionCountSpinner type:#integer range:[1, 64, 8] align:#right width:60 offset:[12, 0]
+	spinner pathGridSectionCountSpinner type:#integer range:[1, 128, 8] align:#right width:60 offset:[12, 0]
 	label dummyLabel22 "Cell Size:" align:#left width:90 across:2 offset:[-10, 0]
-	spinner pathGridCellSizeSpinner type:#float range:[10.0, 4000.0, 750.0] align:#right width:60 offset:[12, 0]
+	spinner pathGridCellSizeSpinner type:#float range:[64.0, 2000.0, 750.0] align:#right width:60 offset:[12, 0]
 	button createPathGridButton "Create Path Grid" width:160
 	label dummyLabel23 ""
 	
@@ -354,6 +354,26 @@ utility mapBuilderUtility "Map builder" (
 	
 	on selectFacesByInnerSpaceMaterialIdButton pressed do ( selectFacesByMaterial innerSpaceMaterialIdSpinner.value )
 
+	on chunkGridCellSizeSpinner changed val do (
+		local size = (val * chunkGridSectionCountSpinner.value) as string
+		dummyLabel16.text = "Chunk Grid   " + size + "x" + size
+	)
+	
+	on chunkGridSectionCountSpinner changed val do (
+		local size = (chunkGridCellSizeSpinner.value * val) as string
+		dummyLabel16.text = "Chunk Grid   " + size + "x" + size
+	)
+
+	on pathGridSectionCountSpinner changed val do (
+		local size = (val * pathGridCellSizeSpinner.value) as string
+		dummyLabel20.text = "Path Grid   " + size + "x" + size
+	)
+	
+	on pathGridCellSizeSpinner changed val do (
+		local size = (pathGridSectionCountSpinner.value * val) as string
+		dummyLabel20.text = "Path Grid   " + size + "x" + size
+	)
+	
 )
 
 openUtility mapBuilderUtility
